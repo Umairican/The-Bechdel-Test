@@ -26,9 +26,9 @@
  
  ### Problem Statement
  
- Can we use machine learning to train a model to reliably predict whether or not a screenplay passes The Bechdel Test?
+Can we use machine learning to train a model to reliably predict whether or not a screenplay passes The Bechdel Test?
  
- 
+We have chosen Alison Bechdel giving films a "Thumbs Up" or "Thumbs Down" review entirely at random as our baseline model. That would be 50/50 for you folks without thumbs.
  
  ### Introduction
  
@@ -51,6 +51,7 @@ This test, while incredibly simple and specific, has become a cultural tentpole 
  
  I then went about collecting scripts in txt format from a number of sources. The [Kaggle source](https://www.kaggle.com/parthplc/movie-scripts) that I originally used included 2,827 scripts, had an issue where all the files were simply "file_1.txt" and so on. I wrote a function to run through these scripts and rename them to the first line of the file, which was the title of the film for many of these. Much data was lost in the process though and I wound up only keeping 882 scripts from this.
  
+ ---
  
  ### Conclusions and Recommendations
  
@@ -63,7 +64,12 @@ This test, while incredibly simple and specific, has become a cultural tentpole 
  
  I used an API to call all the data from www.BechdelTest.com
  
+The lists for male and female names were found here. The lists were edited to reflect character naming probabilities (names like Tony and Adrian were removed from female names).
+ 
+---
  
  ### Additional Resources
 
 Please support the original artist Alison Bechdel [at her website](https://dykestowatchoutfor.com/). 
+
+Slides for the presentation were found on [slidesgo](https://slidesgo.com/).
