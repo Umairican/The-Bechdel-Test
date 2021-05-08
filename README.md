@@ -17,6 +17,7 @@
 * [Introduction](#user-content-introduction)
 * [Executive Summary](#user-content-executive-summary)
 * [Conclusions and Recommendations](#user-content-conclusions-and-recommendations)
+* [Data](#user-data)
 * [Additional Information](#user-content-additional-information)
 
 
@@ -34,7 +35,7 @@ We have chosen Alison Bechdel giving films a "Thumbs Up" or "Thumbs Down" review
  
  What is The Bechdel Test, you ask? Well, a film or screenplay passes The Bechdel Test by meeting the following requirements:
  
- 1. It includes at least two women
+ 1. It includes at least two (named) women
 2. who have at least one conversation
 3. about something other than a man or men.
 
