@@ -8,7 +8,8 @@
 
 </p>
 <h1 align="center">The Bechdel Test</h1>
-<h3 align="center">Does Your Screenplay Pass The Bechdel Test?</h3>
+<h3 align="center">Part A: Does Your Screenplay Pass The Bechdel Test?</h3>
+<h3 align="center">Part B: Can A Model Produce A Scene That Passes The Bechdel Test?</h3>
  
  
  ### Table of Contents
@@ -50,7 +51,7 @@ This test, while incredibly simple and specific, has become a cultural tentpole 
  
  I was able to use The Bechdel Test API to receive all the information from that website and put that into a dataframe.
  
- I then went about collecting scripts in txt format from a number of sources. The [Kaggle source](https://www.kaggle.com/parthplc/movie-scripts) that I originally used included 2,827 scripts, had an issue where all the files were simply "file_1.txt" and so on. I wrote a function to run through these scripts and rename them to the first line of the file, which was the title of the film for many of these. Much data was lost in the process though and I wound up only keeping 882 scripts from this.
+ I then went about collecting scripts in txt format from a number of sources. The [Kaggle source](https://www.kaggle.com/parthplc/movie-scripts) that I originally used included 2,827 scripts, had an issue where all the files were simply "file_1.txt" and so on. I wrote a function to run through these scripts and rename them to the first line of the file, which was the title of the film for many of these. Much data was lost in the process though and I wound up only keeping 936 scripts from this.
  
  ---
  
