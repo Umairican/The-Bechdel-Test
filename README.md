@@ -1,5 +1,3 @@
-# THIS PROJECT IS CURRENTLY UNDER CONSTRUCTION - COMPLETION DATE - 13.05.2021
-
 # The Bechdel Test
 
  
@@ -7,7 +5,6 @@
 	<img width=100% src="https://user-images.githubusercontent.com/4650739/34265870-eb4dc20c-e63c-11e7-8188-a4096ef24153.jpeg" />
 
 </p>
-<h1 align="center">The Bechdel Test</h1>
 <h3 align="center">Part A: Does Your Screenplay Pass The Bechdel Test?</h3>
 <h3 align="center">Part B: Can A Model Produce A Scene That Passes The Bechdel Test?</h3>
  
