@@ -16,7 +16,7 @@
 * [Executive Summary](#user-content-executive-summary)
 * [Conclusions and Recommendations](#user-content-conclusions-and-recommendations)
 * [Data](#user-data)
-* [Additional Information](#user-content-additional-information)
+* [Additional Resources](#user-content-additional-information)
 
 
 ---
