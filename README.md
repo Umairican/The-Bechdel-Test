@@ -74,6 +74,8 @@ The Bechdel Test is a difficult metric on which to gauge a screenplay. "DIE HARD
 If you were to attempt a similar thing, I would actually suggest using Python Control Flow to create a series of IF/ELSE statements to parse through a screenplay, divide it into individual scenes, search through the names to see if there are two women in the scene, then search through the scene to find the dialogue, and finally to ensure that the dialogue is no mentioning any men.
 
 As for text generation of scenes in a screenplay, this would be best tackled piece by piece. A further project would be to train models on scene headings, action, and dialogue respectively. I will attempt this in another project.
+
+And, of course, I would recommend having more observations in your dataset.
  
  
  ### Data
