@@ -1,75 +1,92 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "friendly-compatibility",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import streamlit as st\n",
-    "from utils import load_model, generate\n",
-    "import time\n",
-    "import json\n",
-    "\n",
-    "# model, tokenizer = load_model()\n",
-    "@st.cache(allow_output_mutation=True)\n",
-    "def loader():\n",
-    "    return load_model()\n",
-    "\n",
-    "\n",
-    "def main():\n",
-    "    st.title(\"The Alisons\")\n",
-    "    st.write(\"\"\"\n",
-    "    Scene Generation That Passes The Bechdel Test - Kosher Fo' Sure\n",
-    "    \"\"\")\n",
-    "    model, tokenizer = loader()\n",
-    "    max_length = st.sidebar.slider(\n",
-    "        \"\"\" Max Script Length \n",
-    "        (Longer length, slower generation)\"\"\",\n",
-    "        50,\n",
-    "        1000\n",
-    "    )\n",
-    "    context = st.sidebar.text_area(\"Context\")\n",
-    "    if st.sidebar.button(\"Generate\"):\n",
-    "        start_time = time.time()\n",
-    "        if context:\n",
-    "            sample = generate(model,tokenizer,input_text=context,max_length=max_length)\n",
-    "        else: \n",
-    "            sample = generate(model,tokenizer,max_length=max_length)\n",
-    "            \n",
-    "        end_time = time.time()\n",
-    "\n",
-    "        print(end_time-start_time)\n",
-    "    else:\n",
-    "        sample = ['']\n",
-    "\n",
-    "    st.text(sample[0])\n",
-    "    \n",
-    "    \n",
-    "main()"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.8.8"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+#https://towardsdatascience.com/rick-and-morty-story-generation-with-gpt2-using-transformers-and-streamlit-in-57-lines-of-code-8f81a8f92692
+import streamlit as st
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+from keras.models import Sequential
+from keras.utils import np_utils
+import sys
+from PIL import Image
+
+
+
+bridesmaids = "../data/Scripts/BRIDESMAIDS.TXT"
+ghost_world = "../data/Scripts/GHOST WORLD.TXT"
+juno = "../data/Scripts/JUNO.TXT"
+martha_marcy = "../data/Scripts/MARTHA MARCY MAY MARLENE.TXT"
+precious = "../data/Scripts/PRECIOUS.TXT"
+sex_city = "../data/Scripts/SEX AND THE CITY: THE MOVIE.TXT"
+the_help = "../data/Scripts/THE HELP.TXT"
+frozen = "../data/Scripts/FROZEN.TXT"
+
+raw_text = open(bridesmaids, 'r', encoding='utf-8').read() + open(ghost_world, 'r', encoding='utf-8').read() + open(juno, 'r', encoding='utf-8').read() + open(martha_marcy, 'r', encoding='utf-8').read() + open(precious, 'r', encoding='utf-8').read() + open(sex_city, 'r', encoding='utf-8').read() + open(the_help, 'r', encoding='utf-8').read() + open(frozen, 'r', encoding='utf-8').read()
+raw_text = raw_text.lower()
+
+chars = sorted(list(set(raw_text)))
+
+char_to_int = dict((c, i) for i, c in enumerate(chars))
+
+n_chars = len(raw_text)
+n_vocab = len(chars)
+
+seq_length = 100
+dataX = []
+dataY = []
+for i in range(0, n_chars - seq_length, 1):
+    seq_in = raw_text[i:i + seq_length]
+    seq_out = raw_text[i + seq_length]
+    dataX.append([char_to_int[char] for char in seq_in])
+    dataY.append(char_to_int[seq_out])
+n_patterns = len(dataX)
+
+    # reshape X to be [samples, time steps, features]
+X = np.reshape(dataX, (n_patterns, seq_length, 1))
+    # normalize
+X = X / float(n_vocab)
+    # one hot encode the output variable
+y = np_utils.to_categorical(dataY)
+
+
+model = tf.keras.models.load_model("../assets/saved_final_model.hp5")
+
+model.compile(loss='categorical_crossentropy', optimizer='adam')
+
+
+int_to_char = dict((i, c) for i, c in enumerate(chars))
+image = Image.open("../assets/The-Rule.png")
+st.title("The Alisons")
+st.image(image)
+st.write("""
+Scene Generation That (Fingers Crossed) Passes The Bechdel Test
+***
+""")
+
+#textbox = st.sidebar.text_area('Set The Scene:', '', height=200, max_chars=500)
+slider = st.sidebar.slider('Story length in characters (be patient)', 50, 200)
+
+
+def generator():
+    if st.sidebar.button('Tell Me A Story'):
+        start = np.random.randint(0, len(dataX)-1)
+        pattern = dataX[start]
+        st.write("FADE IN:")
+        st.write("\"", ''.join([int_to_char[value] for value in pattern]), "\"")
+
+        # generate characters
+        for i in range(slider):
+        	x = np.reshape(pattern, (1, len(pattern), 1))
+        	x = x / float(n_vocab)
+        	prediction = model.predict(x, verbose=0)
+        	index = np.argmax(prediction)
+        	result = int_to_char[index]
+        	seq_in = [int_to_char[value] for value in pattern]
+        	sys.stdout.write(result)
+        	pattern.append(index)
+        	pattern = pattern[1:len(pattern)]
+        st.write("\nFADE OUT.")
+
+
+generator()
+
+if st.sidebar.button('Did it pass?'):
+    st.balloons()
